@@ -16,7 +16,8 @@ export class RedditPost {
         object.nsfw = post.over_18;
         object.image_url = post.url;
         object.postLink = `https://reddit.com${post.permalink}`;
-        console.log(object);
+        // console.log(object);
+        return object;
 
     }
 
