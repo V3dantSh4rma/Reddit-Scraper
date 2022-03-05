@@ -1,7 +1,7 @@
-import { RedditApi } from "./src";
+import {RedditApi, RedditPost} from "./src";
 
-const c = new RedditApi();
+const c: RedditApi = new RedditApi();
 
-c.getFirst('copypasta').then((c: void) => {
-    console.log(c);
-});
+const post: RedditApi = c.getRandom().then((post) => {
+    console.log(post);
+})

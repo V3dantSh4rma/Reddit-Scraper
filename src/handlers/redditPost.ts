@@ -1,8 +1,9 @@
-import { RedditApi } from "..";
+import {RedditApi} from "./redditPostManager";
 
 export class RedditPost {
 
     static createPost(post: any) {
+
         const object: any = {};
 
         object.title = post.title;
@@ -16,6 +17,7 @@ export class RedditPost {
         object.image_url = post.url;
         object.postLink = `https://reddit.com${post.permalink}`;
         console.log(object);
+
     }
 
 }
