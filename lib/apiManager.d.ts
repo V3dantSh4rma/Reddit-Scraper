@@ -1,4 +1,4 @@
-export declare class FetchIt {
+export declare class Scraper {
     private subredditBase;
     private subreddits;
     private randomSubreddit;
