@@ -1,8 +1,16 @@
 <h1 align="center"> Reddit Scraper </h1>
 
-# About
-@vedant/reddit is a nodejs library coded using javascript to make work for coders who are using the raw reddit api to make there lives easier. Thanks to [Ric](https://github.com/ricdotnet/) for helping me fix major part in the code.
 
+# About
+**@vedantsharma/reddit** is a nodejs library coded using javascript to make work for coders who are using the raw reddit api to make there lives easier. Thanks to [Ric](https://github.com/ricdotnet/) and [Sam](github.com/idevelopThings/) for helping me remove the irrelevant part and fixing bugs.
+
+# Errors
+If you guys face errors while using this library then make an issue. I'm currently busy with exams and will fix them later.
+
+# Installation
+```
+npm install @vedantsharma/reddit
+```
 
 # Overview
 The parameters are optional. So... the default subreddits are "dankmemes" and "wholesomememes".
@@ -20,43 +28,25 @@ import {Scraper} from "@vedant/reddit";
 const a = new Scraper();
 ```
 
-# Possible errors
-- 
-# Usages
-Typescript:
+# Usages/Examples
 
+- Typescript
 ```typescript
-import {Scraper} from "@vedant/reddit";
+import {Scraper} from "@vedantsharma/reddit";
 
 const manager = new Scraper();
 
-// Using Async/Await
 const post = await manager.getFirst('funny'); // Leaving this empty would use the default subreddits as given on 
 console.log(post); // Print out the Reddit Post Object.
-console.log(post.titl); // Print out the title of the reddit post.
-
-
-// Using .then()
-manager.getRandom().then(post => {
-    console.log(post); // Print out the Object.
-    console.log(post.title); // Print out the Post Title.
-});
+console.log(post.title); // Print out the title of the reddit post.
 ```
 
-Javascript:
+- Javascript
 ```javascript
-const lib = require("@vedant/reddit")
+const lib = require("@vedantsharma/reddit");
 
 const manager = new lib.Scraper();
-
-// async/await
-const post = await manager.getRandom();
-console.log(post);
-console.log(post.title);
-
-//  .then()
-manager.getLast().then((post) => {
-    console.log(post); // Print out the Reddit Post object.
-    console.log(post.title); // Print out the post title
-})
+manager.getFirst('funny').then(post => {
+    console.log(post);
+});
 ```

@@ -3,12 +3,19 @@ import { RedditPost } from './redditPost';
 import * as http from 'http';
 
 export class Scraper {
-    private subredditBase: string = 'https://www.reddit.com/<subreddit>.json?limit=100';
-    private subreddits: Array<string> = ['dankmemes', 'wholesomememes'];
-    private randomSubreddit: string = this.subredditBase?.replace('<subreddit>', this.subreddits[Math.floor(Math.random() * this.subreddits.length)]);
 
-    private data: any = '';
+    private subredditBase: string     = 'https://www.reddit.com/r/<subreddit>.json?limit=100';
+    private subreddits: Array<string> = ['dankmemes', 'wholesomememes'];
+    private randomSubreddit: string   = this.subredditBase?.replace('<subreddit>', this.subreddits[Math.floor(Math.random() * this.subreddits.length)]);
+    private data: any                 = '';
     private subredditUrl?: string;
+
+
+	public static usingSubReddits(subs : string[]) : Scraper {
+		const inst      = new this();
+		inst.subreddits = subs;
+		return inst;
+	}
 
     private get(subredditUrl: string) {
         return new Promise((resolve, reject) => {
@@ -24,7 +31,7 @@ export class Scraper {
                 });
 
                 res.on('error', (e: Error) => {
-                    reject('Invalid Subreddit!');
+                    reject(e);
                 });
             });
         });
@@ -37,63 +44,30 @@ export class Scraper {
             this.subredditUrl = this.randomSubreddit;
         }
 
-        return Promise.resolve(this.get(this.subredditUrl));
+        return this.get(this.subredditUrl);
     }
 
-    public async getFirst(subreddit?: string): Promise<any> {
+    public async getFirst(subreddit?: string): Promise<RedditPost> {
         this.subredditUrl = subreddit ?? this.subreddits[Math.floor(Math.random() * this.subreddits.length)];
-        const data: any = await this.getAll(this.subredditUrl);
+        const data: any   = await this.getAll(this.subredditUrl);
 
-        return new Promise((resolve, reject) => {
-
-            try {
-                resolve(RedditPost.createPost(data[1].data));
-            } catch (e) {
-                reject(e);
-            }
-
-        });
-
+        return RedditPost.createPost(data[1].data);
     }
 
-    public async getRandom(subreddit?: string): Promise<any> {
-        this.subredditUrl = subreddit ?? this.subreddits[Math.floor(Math.random() * this.subreddits.length)];
-        const data: any = await this.getAll(this.subredditUrl);
+    public async getRandom(subreddit?: string): Promise<RedditPost> {
+        this.subredditUrl         = subreddit ?? this.subreddits[Math.floor(Math.random() * this.subreddits.length)];
+        const data: any           = await this.getAll(this.subredditUrl);
 
-        return new Promise((resolve, reject) => {
-
-            try {
-                const randomIndex: number = Math.floor(Math.random() * data.length);
-                resolve(RedditPost.createPost(data[randomIndex].data));
-            } catch (e) {
-                reject(e);
-            }
-
-        });
-
+	    const randomIndex: number = Math.floor(Math.random()*data.length);
+	    return RedditPost.createPost(data[randomIndex].data);
     }
 
-    public async getLast(subreddit?: string): Promise<any> {
+    public async getLast(subreddit?: string): Promise<RedditPost> {
+        this.subredditUrl      = subreddit ?? this.subreddits[Math.floor(Math.random() * this.subreddits.length)];
+        const data: any        = await this.getAll(this.subredditUrl);
 
-        this.subredditUrl = subreddit ?? this.subreddits[Math.floor(Math.random() * this.subreddits.length)];
-        const data: any = await this.getAll(this.subredditUrl);
-
-        return new Promise((resolve, reject) => {
-
-            try {
-
-                if (data === null || undefined) {
-                    console.error('Invalid Subreddit.');
-                    return;
-                };
-
-                const maxIndex: number = data.length - 1;
-                resolve(RedditPost.createPost(data[maxIndex].data));
-            } catch (e) {
-                reject(e);
-            }
-
-        });
-
+	    const maxIndex: number = data.length - 1;
+	    return RedditPost.createPost(data[maxIndex].data);
     }
+
 }

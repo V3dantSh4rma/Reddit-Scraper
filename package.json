@@ -1,8 +1,11 @@
 {
-  "name": "@vedant/reddit",
-  "version": "1.0.0",
+  "name": "@vedantsharma/reddit",
+  "version": "2.0.0",
   "description": "Reddit Library for Nodejs and Typescript",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
   "keywords": [
     "reddit api",
     "reddit api nodejs",
@@ -13,18 +16,8 @@
   ],
   "author": "Vedant Sharma",
   "license": "ISC",
-  "scripts": {
-    "build": "tsc ./lib/"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/V3dantSh4rma/Reddit-Scraper.git"
-  },
-  "bugs": {
-    "url": "https://github.com/V3dantSh4rma/Reddit-Scraper/issues"
-  },
-  "homepage": "https://github.com/V3dantSh4rma/Reddit-Scraper#readme",
   "devDependencies": {
+    "@types/node": "^17.0.21",
     "typescript": "^4.6.2"
   }
 }
