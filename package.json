@@ -3,10 +3,28 @@
   "version": "1.0.0",
   "description": "Reddit Library for Nodejs and Typescript",
   "main": "index.js",
-  "keywords": ["reddit api", "reddit api nodejs", "reddit", "reddit scraper","reddit scraper nodejs", "reddit api wrapper"],
+  "keywords": [
+    "reddit api",
+    "reddit api nodejs",
+    "reddit",
+    "reddit scraper",
+    "reddit scraper nodejs",
+    "reddit api wrapper"
+  ],
   "author": "Vedant Sharma",
   "license": "ISC",
-  "dependencies": {
-    "ts-node": "^10.6.0"
+  "scripts": {
+    "build": "tsc ./lib/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/V3dantSh4rma/Reddit-Scraper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/V3dantSh4rma/Reddit-Scraper/issues"
+  },
+  "homepage": "https://github.com/V3dantSh4rma/Reddit-Scraper#readme",
+  "devDependencies": {
+    "typescript": "^4.6.2"
   }
 }

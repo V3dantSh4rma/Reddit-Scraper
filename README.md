@@ -20,6 +20,8 @@ import {Scraper} from "@vedant/reddit";
 const a = new Scraper();
 ```
 
+# Possible errors
+- 
 # Usages
 Typescript:
 

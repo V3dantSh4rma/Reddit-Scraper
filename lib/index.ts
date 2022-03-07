@@ -1,2 +1,2 @@
-export {RedditPost} from "./redditPost";
-export {Scraper} from "./apiManager";
+export { RedditPost } from "./redditPost";
+export { Scraper } from "./apiManager";

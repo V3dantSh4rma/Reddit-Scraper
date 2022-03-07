@@ -3,13 +3,10 @@ import { RedditPost } from './redditPost';
 import * as http from 'http';
 
 export class Scraper {
-    private subredditBase: string =
-        'https://www.reddit.com/r/<subreddit>.json?limit=100';
+    private subredditBase: string = 'https://www.reddit.com/<subreddit>.json?limit=100';
     private subreddits: Array<string> = ['dankmemes', 'wholesomememes'];
-    private randomSubreddit: string = this.subredditBase?.replace(
-        '<subreddit>',
-        this.subreddits[Math.floor(Math.random() * this.subreddits.length)]
-    );
+    private randomSubreddit: string = this.subredditBase?.replace('<subreddit>', this.subreddits[Math.floor(Math.random() * this.subreddits.length)]);
+
     private data: any = '';
     private subredditUrl?: string;
 
@@ -23,14 +20,11 @@ export class Scraper {
                 });
 
                 res.on('end', () => {
-                    // this.data = JSON.parse(rawData).data.children;
-                    // resolve(JSON.parse(rawData).data.children);
                     resolve(JSON.parse(rawData).data.children);
                 });
 
                 res.on('error', (e: Error) => {
-                    // console.log(e);
-                    reject(e);
+                    reject('Invalid Subreddit!');
                 });
             });
         });
@@ -52,13 +46,9 @@ export class Scraper {
 
         return new Promise((resolve, reject) => {
 
-            try{
-
-                setTimeout(() => {
-                    resolve(RedditPost.createPost(data[1].data));
-                }, 6000);
-
-            } catch(e){
+            try {
+                resolve(RedditPost.createPost(data[1].data));
+            } catch (e) {
                 reject(e);
             }
 
@@ -72,14 +62,10 @@ export class Scraper {
 
         return new Promise((resolve, reject) => {
 
-            try{
-
-                setTimeout(() => {
-                    const randomIndex: number = Math.floor(Math.random()*data.length);
-                    resolve(RedditPost.createPost(data[randomIndex].data));
-                }, 6000);
-
-            } catch(e){
+            try {
+                const randomIndex: number = Math.floor(Math.random() * data.length);
+                resolve(RedditPost.createPost(data[randomIndex].data));
+            } catch (e) {
                 reject(e);
             }
 
@@ -94,14 +80,16 @@ export class Scraper {
 
         return new Promise((resolve, reject) => {
 
-            try{
+            try {
 
-                setTimeout(() => {
-                    const maxIndex: number = data.length - 1;
-                    resolve(RedditPost.createPost(data[maxIndex].data));
-                }, 6000);
+                if (data === null || undefined) {
+                    console.error('Invalid Subreddit.');
+                    return;
+                };
 
-            } catch(e){
+                const maxIndex: number = data.length - 1;
+                resolve(RedditPost.createPost(data[maxIndex].data));
+            } catch (e) {
                 reject(e);
             }
 
