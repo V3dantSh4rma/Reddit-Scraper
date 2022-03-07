@@ -13,6 +13,12 @@ export class Scraper {
     private data: any = '';
     private subredditUrl?: string;
 
+	public static usingSubReddits(subs : string[]) : Scraper {
+		const inst = new this();
+		inst.subreddits = subs;
+		return inst;
+	}
+
     private get(subredditUrl: string) {
         return new Promise((resolve, reject) => {
             https.get(subredditUrl, (res: http.IncomingMessage) => {
@@ -43,69 +49,29 @@ export class Scraper {
             this.subredditUrl = this.randomSubreddit;
         }
 
-        return Promise.resolve(this.get(this.subredditUrl));
+        return this.get(this.subredditUrl);
     }
 
-    public async getFirst(subreddit?: string): Promise<any> {
+    public async getFirst(subreddit?: string): Promise<RedditPost> {
         this.subredditUrl = subreddit ?? this.subreddits[Math.floor(Math.random() * this.subreddits.length)];
         const data: any = await this.getAll(this.subredditUrl);
 
-        return new Promise((resolve, reject) => {
-
-            try{
-
-                setTimeout(() => {
-                    resolve(RedditPost.createPost(data[1].data));
-                }, 6000);
-
-            } catch(e){
-                reject(e);
-            }
-
-        });
-
+        return RedditPost.createPost(data[1].data);
     }
 
-    public async getRandom(subreddit?: string): Promise<any> {
+    public async getRandom(subreddit?: string): Promise<RedditPost> {
         this.subredditUrl = subreddit ?? this.subreddits[Math.floor(Math.random() * this.subreddits.length)];
         const data: any = await this.getAll(this.subredditUrl);
 
-        return new Promise((resolve, reject) => {
-
-            try{
-
-                setTimeout(() => {
-                    const randomIndex: number = Math.floor(Math.random()*data.length);
-                    resolve(RedditPost.createPost(data[randomIndex].data));
-                }, 6000);
-
-            } catch(e){
-                reject(e);
-            }
-
-        });
-
+	    const randomIndex: number = Math.floor(Math.random()*data.length);
+	    return RedditPost.createPost(data[randomIndex].data);
     }
 
-    public async getLast(subreddit?: string): Promise<any> {
-
+    public async getLast(subreddit?: string): Promise<RedditPost> {
         this.subredditUrl = subreddit ?? this.subreddits[Math.floor(Math.random() * this.subreddits.length)];
         const data: any = await this.getAll(this.subredditUrl);
 
-        return new Promise((resolve, reject) => {
-
-            try{
-
-                setTimeout(() => {
-                    const maxIndex: number = data.length - 1;
-                    resolve(RedditPost.createPost(data[maxIndex].data));
-                }, 6000);
-
-            } catch(e){
-                reject(e);
-            }
-
-        });
-
+	    const maxIndex: number = data.length - 1;
+	    return RedditPost.createPost(data[maxIndex].data);
     }
 }
