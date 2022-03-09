@@ -32,11 +32,11 @@ const a = new Scraper();
 
 - Typescript
 ```typescript
-import {Scraper} from "@vedantsharma/reddit";
+import {Scraper, RedditPost} from "@vedantsharma/reddit";
 
-const manager = new Scraper();
+const manager: Scraper = new Scraper();
 
-const post = await manager.getFirst('funny'); // Leaving this empty would use the default subreddits as given on 
+const post: RedditPost = await manager.getFirst('funny'); // Leaving this empty would use the default subreddits as given on 
 console.log(post); // Print out the Reddit Post Object.
 console.log(post.title); // Print out the title of the reddit post.
 ```
