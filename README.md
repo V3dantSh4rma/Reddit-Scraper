@@ -4,9 +4,6 @@
 # About
 **@vedantsharma/reddit** is a nodejs library coded using javascript to make work for coders who are using the raw reddit api to make there lives easier. Thanks to [Ric](https://github.com/ricdotnet/) and [Sam](https://github.com/idevelopThings/) for helping me remove the irrelevant part and fixing bugs.
 
-# Errors
-If you guys face errors while using this library then make an issue. I'm currently busy with exams and will fix them later.
-
 # Installation
 ```
 npm install @vedantsharma/reddit
